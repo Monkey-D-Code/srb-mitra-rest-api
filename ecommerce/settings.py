@@ -82,16 +82,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 DATABASES = {
     'default': {
-
-            'ENGINE': 'djongo',
-            'ENFORCE_SCHEMA': True,
-            'NAME': 'srbmitra',
-            'HOST': 'ds241664.mlab.com',
-            'PORT': 41664,
-            'USER': 'bodhisatwa',
-            'PASSWORD': 'Niladrib@rma1',
-            'AUTH_SOURCE': 'srbmitra',
-  }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 
