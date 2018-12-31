@@ -78,7 +78,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    'srbmitra.com',
+)
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
