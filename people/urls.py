@@ -1,6 +1,6 @@
 from django.urls import *
 from . views import *
-
+from rest_framework.authtoken.views import obtain_auth_token
 app_name = 'people'
 
 urlpatterns = [
@@ -11,4 +11,6 @@ urlpatterns = [
     path('customer/<pk>/profile/' , CustomerProfile.as_view() , name='customer-profile'),
 
     path('customer/<pk>/address/' , CustomerAddressView.as_view() , name='customer-address'),
+
+    path('customer/login/' , obtain_auth_token , name='customer-login'),
 ]

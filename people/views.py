@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import *
 from rest_framework.status import *
+from rest_framework.authtoken.models import Token
 
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
@@ -43,7 +44,7 @@ class CustomerCreateList(APIView):
                 customer.save()
                 token = Token.objects.create(user=user)
                 token.save()
-                return Response(serializer.data , status=HTTP_200_OK)
+                return Response({"Success" :"user created" , "Token" : token.key} , status=HTTP_201_CREATED)
             else:
 
                 return Response({"Error !" : "Passwords does not match"} , status=HTTP_400_BAD_REQUEST)
@@ -103,3 +104,4 @@ class CustomerAddressView(APIView):
 
     def delete(self , request , pk):
         return Response({"pk" : pk})
+
