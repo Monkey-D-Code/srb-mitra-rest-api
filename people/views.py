@@ -116,7 +116,7 @@ class CustomerFromToken(APIView):
         if info.keys() == {'Token'}:
             
             token    = Token.objects.get(key=info['Token'])
-            customer = Customer.objects.get(user=token.user_id)
+            customer = Customer.objects.filter(user=token.user_id)
             customerJSON = CustomerSerializer(customer , many=True)
             return Response({"Token" : token.key ,"Customer" : customerJSON.data} , status=HTTP_200_OK)
 
