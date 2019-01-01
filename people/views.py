@@ -47,7 +47,7 @@ class CustomerCreateList(APIView):
                 customer_ser = CustomerSerializer(customer)
                 
                 token = Token.objects.create(user=user)
-                return Response({"User" :serializer.data , "Token" : token.key ,"Customer" :customer_ser.data} , status=HTTP_201_CREATED)
+                return Response({"Token" : token.key ,"Customer" :customer_ser.data} , status=HTTP_201_CREATED)
             else:
 
                 return Response({"Error !" : "Passwords does not match"} , status=HTTP_400_BAD_REQUEST)
