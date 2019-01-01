@@ -13,4 +13,8 @@ urlpatterns = [
     path('customer/<pk>/address/' , CustomerAddressView.as_view() , name='customer-address'),
 
     path('customer/login/' , obtain_auth_token , name='customer-login'),
+
+    path('customer/info/' , CustomerFromToken.as_view() , name="token-to-customer"),
+
+    
 ]

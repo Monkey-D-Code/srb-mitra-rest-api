@@ -50,9 +50,9 @@ class CustomerCreateList(APIView):
                 return Response({"Token" : token.key ,"Customer" :customer_ser.data} , status=HTTP_201_CREATED)
             else:
 
-                return Response({"Error !" : "Passwords does not match"} , status=HTTP_400_BAD_REQUEST)
+                return Response({"Error" : "Passwords does not match"} , status=HTTP_400_BAD_REQUEST)
         else:
-            return Response({"Error !"  : "INVALID DATA INPUT !"} , status=HTTP_404_NOT_FOUND)
+            return Response({"Error"  : "INVALID DATA INPUT !"} , status=HTTP_404_NOT_FOUND)
 
 
 
@@ -87,7 +87,7 @@ class CustomerProfile(APIView):
 
         else:
 
-            return Response({"Error !"  : "INVALID DATA INPUT !"} , status=HTTP_404_NOT_FOUND)
+            return Response({"Error"  : "INVALID DATA INPUT !"} , status=HTTP_404_NOT_FOUND)
 
     def delete(self , request , pk):
         return Response({"pk" : pk})
@@ -108,3 +108,17 @@ class CustomerAddressView(APIView):
     def delete(self , request , pk):
         return Response({"pk" : pk})
 
+class CustomerFromToken(APIView):
+
+    def post(self , request):
+        info = request.data;
+
+        if info.keys() == {'Token'}:
+            
+            token    = Token.objects.get(key=info['Token'])
+            customer = Customer.objects.get(user=token.user_id)
+            customerJSON = CustomerSerializer(customer , many=True)
+            return Response({"Token" : token.key ,"Customer" : customerJSON.data} , status=HTTP_200_OK)
+
+        else:
+            return Response({"Error"  : "INVALID DATA INPUT !"} , status=HTTP_404_NOT_FOUND)
