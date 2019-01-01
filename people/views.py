@@ -37,6 +37,7 @@ class CustomerCreateList(APIView):
                     
                 )
                 user.set_password(info['password'])
+                user.groups = "CustomerGroup"
                 user.save()
                 serializer = UserSerializer(user)
                 customer = Customer.objects.create(user=user , phone_number=info['phone_number'])
