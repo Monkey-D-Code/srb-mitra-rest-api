@@ -6,7 +6,7 @@ from rest_framework.authtoken.models import Token
 
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User , Group
 
 
 from . models import *
@@ -37,15 +37,17 @@ class CustomerCreateList(APIView):
                     
                 )
                 user.set_password(info['password'])
-                user.groups = "CustomerGroup"
+                group = Group.objects.get(name="CustomerGroup")
+                user.groups.add(group)
+
+                
                 user.save()
                 serializer = UserSerializer(user)
                 customer = Customer.objects.create(user=user , phone_number=info['phone_number'])
                 customer_ser = CustomerSerializer(customer)
-                customer.save()
+                
                 token = Token.objects.create(user=user)
-                token.save()
-                return Response({"Success" :"user created" , "Token" : token.key} , status=HTTP_201_CREATED)
+                return Response({"User" :serializer.data , "Token" : token.key} , status=HTTP_201_CREATED)
             else:
 
                 return Response({"Error !" : "Passwords does not match"} , status=HTTP_400_BAD_REQUEST)
