@@ -32,7 +32,7 @@ class CustomerCreateList(APIView):
                 user = User.objects.create(
                     first_name    =  info['first_name'],
                     last_name    =  info['last_name'],
-                    username    =  info['username'],
+                    username    =  "customer_"+info['username'],
                     email    =  info['email'],
                     
                 )
